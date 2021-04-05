@@ -1,0 +1,11 @@
+mysql:
+  driver: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://8.140.171.253/komodo?useSSL=false&characterEncoding=utf-8&useUnicode=true&serverTimezone=Asia/Shanghai&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+  username: root
+  password: 123456
+
+oracle:
+  driver: oracle.jdbc.OracleDriver
+  url: jdbc:oracle:thin:@//114.116.69.68:1521/ORCL.LK
+  username: sys as sysdba
+  password: EMtc##123456789
