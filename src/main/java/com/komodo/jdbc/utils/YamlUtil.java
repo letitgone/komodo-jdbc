@@ -1,8 +1,7 @@
-package com.komodo.util;
+package com.komodo.jdbc.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.komodo.database.pojo.Configuration;
-import com.komodo.database.pojo.DataBaseInfo;
+import com.komodo.jdbc.pojo.ConnectionInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.Yaml;
 
@@ -64,9 +63,9 @@ public class YamlUtil {
             t = (T) result.getString(keysArray[keysArray.length - 1]);
         } else if (clazz.isAssignableFrom(Boolean.class)) {
             t = (T) result.getBoolean(keysArray[keysArray.length - 1]);
-        } else if (clazz.isAssignableFrom(DataBaseInfo.class)) {
+        } else if (clazz.isAssignableFrom(ConnectionInfo.class)) {
             t = (T) result.getJSONObject(keysArray[keysArray.length - 1])
-                    .toJavaObject(DataBaseInfo.class);
+                    .toJavaObject(ConnectionInfo.class);
         } else {
             throw new RuntimeException("Unknown type!");
         }

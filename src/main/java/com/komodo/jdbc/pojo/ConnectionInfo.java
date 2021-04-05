@@ -1,4 +1,4 @@
-package com.komodo.database.pojo;
+package com.komodo.jdbc.pojo;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @Date 2021/04/05 10:22
  */
 @Data
-public class DataBaseInfo implements Serializable {
+public class ConnectionInfo implements Serializable {
 
     private static final long serialVersionUID = 4918883975797925025L;
 

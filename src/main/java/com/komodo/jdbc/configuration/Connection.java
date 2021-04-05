@@ -1,9 +1,11 @@
-package com.komodo.database;
+package com.komodo.jdbc.configuration;
 
-import com.komodo.database.pojo.Configuration;
-import com.komodo.database.pojo.DataBaseInfo;
+import com.komodo.jdbc.pojo.Configuration;
+import com.komodo.jdbc.pojo.ConnectionInfo;
 
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * @Author ZhangGJ
@@ -14,15 +16,14 @@ public class Connection {
     public static PreparedStatement getConnection(Configuration configuration, String sql,
             Object... args) {
         java.sql.Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet;
-        DataBaseInfo dataBaseInfo = configuration.getDataBaseInfo();
+        PreparedStatement preparedStatement;
+        ConnectionInfo connectionInfo = configuration.getConnectionInfo();
         try {
-            String driver = dataBaseInfo.getDriver();
+            String driver = connectionInfo.getDriver();
             Class.forName(driver);
             connection = DriverManager
-                    .getConnection(dataBaseInfo.getUrl(), dataBaseInfo.getUsername(),
-                            dataBaseInfo.getPassword());
+                    .getConnection(connectionInfo.getUrl(), connectionInfo.getUsername(),
+                            connectionInfo.getPassword());
             preparedStatement = connection.prepareStatement(sql);
             for (int i = 1; i <= args.length; i++) {
                 Object o = args[i];

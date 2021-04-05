@@ -1,4 +1,7 @@
-package com.komodo.database;
+package com.komodo;
+
+import com.komodo.jdbc.configuration.Executor;
+import com.komodo.jdbc.pojo.DatasourceEnum;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) throws SQLException {
-        Executor.database("mysql");
+        Executor.database(DatasourceEnum.MYSQL);
         boolean insert = Executor.insert("insert into user values(?,?,?,?)", 1, "Tom", "123456",
                 "2021-02-09");
         boolean delete = Executor.delete("delete from user where id = ?", 1);
