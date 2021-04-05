@@ -2,6 +2,8 @@ package com.komodo.jdbc.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.komodo.jdbc.pojo.ConnectionInfo;
+import com.mysql.cj.x.protobuf.MysqlxNotice;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.Yaml;
 
@@ -36,6 +38,7 @@ public class YamlUtil {
             log.error("Error configuration: Config-database.yml");
             return null;
         }
+        keys = keys.toLowerCase();
         String[] keysArray = keys.split("\\.");
         JSONObject result = null;
         T t;

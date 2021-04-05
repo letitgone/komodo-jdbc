@@ -1,6 +1,6 @@
 mysql:
   driver: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://8.140.171.253/komodo?useSSL=false&characterEncoding=utf-8&useUnicode=true&serverTimezone=Asia/Shanghai&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+  url: jdbc:mysql://8.140.171.253/komodo
   username: root
   password: 123456
 
