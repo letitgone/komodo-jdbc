@@ -1,40 +1,51 @@
 import com.komodo.jdbc.configuration.Executor;
-import com.komodo.jdbc.pojo.DatasourceEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import pojo.User;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static com.komodo.jdbc.pojo.DatasourceEnum.MYSQL;
 
 /**
  * @Author ZhangGJ
  * @Date 2021/04/05 11:01
  */
+@Slf4j
 public class JdbcTest {
 
     @Test
     public void insert() {
-        Executor.build(DatasourceEnum.MYSQL);
-        Executor.insert("insert into user (username, password, birthday) values(?,?,?)", "Tom",
-                "123456", "2021-02-09");
+        new Executor(MYSQL)
+                .insert("insert into user (username, password, birthday) values(?,?,?)", "Tomsss",
+                        "123456", "2021-02-09");
+    }
+
+    @Test
+    public void insertBatch() {
+        String[] values = {"Tom", "123456", "2021-02-09"};
+        String[] values1 = {"Tom1", "1234561", "2021-02-091"};
+        String[] values2 = {"Tom2", "1234562", "2021-02-092"};
+        new Executor(MYSQL)
+                .insertBatch("insert into user (username, password, birthday) values(?,?,?)",
+                        values, values1, values2);
     }
 
     @Test
     public void update() {
-        Executor.build(DatasourceEnum.MYSQL);
-        Executor.update("update user set username = ? where id = ?", "铁头娃", 1);
+        new Executor(MYSQL).update("update user set username = ? where id = ?", "铁头娃", 1);
     }
 
     @Test
     public void delete() {
-        Executor.build(DatasourceEnum.MYSQL);
-        Executor.delete("delete from user where id not in (?, ?)", 1, 2);
+        new Executor(MYSQL).delete("delete from user where id not in (?, ?)", 1, 2);
     }
 
     @Test
     public void selectList() {
-        Executor.build(DatasourceEnum.MYSQL);
-        List<User> userList = Executor.selectList(User.class, "select * from user");
+        List<User> userList = new Executor(MYSQL).selectList(User.class, "select * from user");
         for (User user : userList) {
             System.out.println("id: " + user.getId());
             System.out.println("username: " + user.getUsername());
@@ -45,8 +56,8 @@ public class JdbcTest {
 
     @Test
     public void selectMap() {
-        Executor.build(DatasourceEnum.MYSQL);
-        List<Map<String, Object>> map = Executor.selectMap(Map.class, "select username from user");
+        List<Map<String, Object>> map =
+                new Executor(MYSQL).selectMap(Map.class, "select username from user");
         for (Map<String, Object> user : map) {
             System.out.println("id: " + user.get("id"));
             System.out.println("username: " + user.get("username"));
@@ -57,8 +68,7 @@ public class JdbcTest {
 
     @Test
     public void selectOne() {
-        Executor.build(DatasourceEnum.MYSQL);
-        User user = Executor.selectOne(User.class, "select * from user where id = ?", 2);
+        User user = new Executor(MYSQL).selectOne(User.class, "select * from user where id = ?", 2);
         System.out.println("id: " + user.getId());
         System.out.println("username: " + user.getUsername());
         System.out.println("password: " + user.getPassword());
@@ -67,9 +77,8 @@ public class JdbcTest {
 
     @Test
     public void selectMapOne() {
-        Executor.build(DatasourceEnum.MYSQL);
-        Map<String, Object> user =
-                Executor.selectMapOne(Map.class, "select password from user where id = ?", 2);
+        Map<String, Object> user = new Executor(MYSQL)
+                .selectMapOne(Map.class, "select password from user where id = ?", 2);
         System.out.println("id: " + user.get("id"));
         System.out.println("username: " + user.get("username"));
         System.out.println("password: " + user.get("password"));
