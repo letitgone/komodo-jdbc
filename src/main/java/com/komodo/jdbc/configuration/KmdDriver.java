@@ -14,9 +14,9 @@ import java.util.Arrays;
  * @Date 2021/04/03 11:49
  */
 @Slf4j
-public class KmdConnection {
+public class KmdDriver {
 
-    public static PreparedStatement getConnection(Connection connection,
+    public static PreparedStatement getPreparedStatement(Connection connection,
             Configuration configuration, String sql, Object... args)
             throws SQLException, ClassNotFoundException {
         ConnectionInfo connectionInfo = configuration.getConnectionInfo();
@@ -31,7 +31,7 @@ public class KmdConnection {
         return preparedStatement;
     }
 
-    public static PreparedStatement getConnection(Connection connection,
+    public static PreparedStatement getPreparedStatement(Connection connection,
             Configuration configuration, String sql, Object[]... args)
             throws SQLException, ClassNotFoundException {
         ConnectionInfo connectionInfo = configuration.getConnectionInfo();

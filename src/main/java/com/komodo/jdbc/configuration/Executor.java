@@ -71,7 +71,7 @@ public class Executor {
     private <T> T executeBatch(String sql, Object[]... args) {
         Object o = null;
         try {
-            preparedStatement = KmdConnection.getConnection(connection, configuration, sql, args);
+            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             o = preparedStatement.executeBatch();
             int[] resultRow = (int[]) o;
             int rows = 0;
@@ -98,7 +98,7 @@ public class Executor {
     private <T> T executeUpdate(String sql, Object... args) {
         Object o = null;
         try {
-            preparedStatement = KmdConnection.getConnection(connection, configuration, sql, args);
+            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             o = preparedStatement.executeUpdate();
             log.info("===========================UPDATE: " + (int) o);
         } catch (ClassNotFoundException | SQLException e) {
@@ -119,7 +119,7 @@ public class Executor {
 
     private <T> Map<String, Object> executeMapOne(Class<T> clazz, String sql, Object... args) {
         try {
-            preparedStatement = KmdConnection.getConnection(connection, configuration, sql, args);
+            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columns = metaData.getColumnCount();
@@ -148,7 +148,7 @@ public class Executor {
 
     private <E> List<Map<String, Object>> executeMap(Class<E> clazz, String sql, Object... args) {
         try {
-            preparedStatement = KmdConnection.getConnection(connection, configuration, sql, args);
+            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             int row = resultSet.getRow();
             List<Map<String, Object>> result = new ArrayList<>(row);
@@ -181,7 +181,7 @@ public class Executor {
 
     private <E> List<E> executeSelect(Class<E> clazz, String sql, Object... args) {
         try {
-            preparedStatement = KmdConnection.getConnection(connection, configuration, sql, args);
+            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             int row = resultSet.getRow();
             List<E> result = new ArrayList<>(row);
@@ -217,7 +217,7 @@ public class Executor {
     private <T> T executeOne(Class<T> clazz, String sql, Object... args) {
         ResultSet resultSet;
         try {
-            preparedStatement = KmdConnection.getConnection(connection, configuration, sql, args);
+            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columns = metaData.getColumnCount();
