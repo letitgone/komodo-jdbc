@@ -44,10 +44,6 @@ public class Executor {
         return executeUpdate(sql, args);
     }
 
-    public <T> T deleteBatch(String sql, Object... args) {
-        return executeUpdate(sql, args);
-    }
-
     public <T> T update(String sql, Object... args) {
         return executeUpdate(sql, args);
     }

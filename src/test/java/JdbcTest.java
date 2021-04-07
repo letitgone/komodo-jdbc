@@ -34,13 +34,13 @@ public class JdbcTest {
     }
 
     @Test
-    public void update() {
-        new Executor(MYSQL).update("update user set username = ? where id = ?", "铁头娃", 1);
+    public void delete() {
+        new Executor(MYSQL).delete("delete from user where id in (?)", 87);
     }
 
     @Test
-    public void delete() {
-        new Executor(MYSQL).delete("delete from user where id not in (?, ?)", 1, 2);
+    public void update() {
+        new Executor(MYSQL).update("update user set username = ? where id = ?", "愣头青", 2);
     }
 
     @Test
