@@ -67,7 +67,8 @@ public class Executor {
     private <T> T executeBatch(String sql, Object[]... args) {
         Object o = null;
         try {
-            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
+            preparedStatement =
+                    KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             o = preparedStatement.executeBatch();
             int[] resultRow = (int[]) o;
             int rows = 0;
@@ -94,7 +95,8 @@ public class Executor {
     private <T> T executeUpdate(String sql, Object... args) {
         Object o = null;
         try {
-            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
+            preparedStatement =
+                    KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             o = preparedStatement.executeUpdate();
             log.info("===========================UPDATE: " + (int) o);
         } catch (ClassNotFoundException | SQLException e) {
@@ -115,16 +117,20 @@ public class Executor {
 
     private <T> Map<String, Object> executeMapOne(Class<T> clazz, String sql, Object... args) {
         try {
-            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
+            preparedStatement =
+                    KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columns = metaData.getColumnCount();
             Map<String, Object> data;
             data = new HashMap<>(columns);
-            for (int i = 1; i <= columns; i++) {
-                String key = metaData.getColumnName(i);
-                data.put(key, resultSet.getObject(key));
+            while (resultSet.next()) {
+                for (int i = 1; i <= columns; i++) {
+                    String key = metaData.getColumnName(i);
+                    data.put(key, resultSet.getObject(key));
+                }
             }
+            log.info("=======================UPDATE: " + 1);
             return data;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -144,7 +150,8 @@ public class Executor {
 
     private <E> List<Map<String, Object>> executeMap(Class<E> clazz, String sql, Object... args) {
         try {
-            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
+            preparedStatement =
+                    KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             int row = resultSet.getRow();
             List<Map<String, Object>> result = new ArrayList<>(row);
@@ -158,6 +165,7 @@ public class Executor {
                 }
                 result.add(data);
             }
+            log.info("=======================UPDATE: " + result.size());
             return result;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -177,7 +185,8 @@ public class Executor {
 
     private <E> List<E> executeSelect(Class<E> clazz, String sql, Object... args) {
         try {
-            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
+            preparedStatement =
+                    KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             int row = resultSet.getRow();
             List<E> result = new ArrayList<>(row);
@@ -193,6 +202,7 @@ public class Executor {
                 e = JSONObject.toJavaObject(data, clazz);
                 result.add(e);
             }
+            log.info("=======================UPDATE: " + result.size());
             return result;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -213,16 +223,20 @@ public class Executor {
     private <T> T executeOne(Class<T> clazz, String sql, Object... args) {
         ResultSet resultSet;
         try {
-            preparedStatement = KmdDriver.getPreparedStatement(connection, configuration, sql, args);
+            preparedStatement =
+                    KmdDriver.getPreparedStatement(connection, configuration, sql, args);
             resultSet = preparedStatement.executeQuery();
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columns = metaData.getColumnCount();
             JSONObject data;
             data = new JSONObject();
-            for (int i = 1; i <= columns; i++) {
-                String key = metaData.getColumnName(i);
-                data.put(key, resultSet.getObject(key));
-            }
+            while (resultSet.next()) {
+                for (int i = 1; i <= columns; i++) {
+                    String key = metaData.getColumnName(i);
+                    Object value = resultSet.getObject(key);
+                    data.put(key, value);
+                }
+            }log.info("=======================UPDATE: " + 1);
             return JSONObject.toJavaObject(data, clazz);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

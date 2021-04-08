@@ -35,7 +35,7 @@ public class JdbcTest {
 
     @Test
     public void delete() {
-        new Executor(MYSQL).delete("delete from user where id in (?)", 87);
+        new Executor(MYSQL).delete("delete from user where id in (?)", 86);
     }
 
     @Test
