@@ -1,10 +1,9 @@
 package com.komodo.jdbc.configuration;
 
 import com.alibaba.fastjson.JSONObject;
-import com.komodo.jdbc.pojo.Configuration;
-import com.komodo.jdbc.pojo.ConnectionInfo;
-import com.komodo.jdbc.pojo.DatasourceEnum;
-import com.komodo.jdbc.utils.YamlUtil;
+import com.komodo.community.enums.DatasourceEnum;
+import com.komodo.community.pojo.ConnectionInfo;
+import com.komodo.community.utils.YamlUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;

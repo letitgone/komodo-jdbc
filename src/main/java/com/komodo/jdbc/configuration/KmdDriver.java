@@ -1,13 +1,12 @@
 package com.komodo.jdbc.configuration;
 
-import com.komodo.jdbc.pojo.Configuration;
-import com.komodo.jdbc.pojo.ConnectionInfo;
+import com.komodo.community.pojo.ConnectionInfo;
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.*;
-import java.util.Arrays;
+import java.sql.SQLException;
 
 /**
  * @Author ZhangGJ
@@ -26,7 +25,6 @@ public class KmdDriver {
                         connectionInfo.getPassword());
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         setPreparedStatement(preparedStatement, args);
-        ResultSetMetaData metaData = preparedStatement.getMetaData();
         log.info("=========================SQL: " + preparedStatement.toString());
         return preparedStatement;
     }

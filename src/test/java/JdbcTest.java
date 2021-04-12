@@ -3,11 +3,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import pojo.User;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.komodo.jdbc.pojo.DatasourceEnum.MYSQL;
+import static com.komodo.community.enums.DatasourceEnum.MYSQL;
 
 /**
  * @Author ZhangGJ
