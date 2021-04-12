@@ -255,7 +255,7 @@ public class Executor {
 
     private Configuration configuration(DatasourceEnum datasourceEnum) {
         ConnectionInfo connectionInfo =
-                YamlUtil.readYaml(datasourceEnum.toString(), ConnectionInfo.class);
+                YamlUtil.readYaml("config-database.yml", datasourceEnum.toString(), ConnectionInfo.class);
         Configuration configuration = new Configuration();
         configuration.setConnectionInfo(connectionInfo);
         return configuration;

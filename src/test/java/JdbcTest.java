@@ -1,3 +1,5 @@
+import com.komodo.community.utils.YamlUtil;
+import com.komodo.community.yaml.OriginTrackedYamlLoader;
 import com.komodo.jdbc.configuration.Executor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -82,5 +84,12 @@ public class JdbcTest {
         System.out.println("username: " + user.get("username"));
         System.out.println("password: " + user.get("password"));
         System.out.println("birthday: " + user.get("birthday"));
+    }
+
+    @Test
+    public void test() {
+        Map<String, Object> oracle = YamlUtil.readYaml("config-database.yml", "oracle", Map.class);
+        List<Map<String, Object>> load = new OriginTrackedYamlLoader().load("config-database.yml");
+        System.out.println(oracle);
     }
 }
