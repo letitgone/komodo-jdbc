@@ -1,6 +1,6 @@
 package com.komodo.jdbc.configuration;
 
-import com.komodo.jdbc.entity.ConnectionInfo;
+import com.komodo.community.pojo.connection.ConnectionInfo;
 import lombok.Data;
 
 import java.io.Serializable;
