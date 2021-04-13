@@ -1,9 +1,10 @@
 import com.komodo.community.utils.YamlUtil;
 import com.komodo.community.yaml.OriginTrackedYamlLoader;
-import com.komodo.jdbc.configuration.Executor;
+import com.komodo.jdbc.executor.Executor;
+import com.komodo.community.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import pojo.User;
+import org.yaml.snakeyaml.Yaml;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class JdbcTest {
     @Test
     public void insert() {
         new Executor(MYSQL)
-                .insert("insert into user (username, password, birthday) values(?,?,?)", "Tomsss",
+                .insert("insert into user (username, password, birthday) values(?,?,?)", "铁头娃",
                         "123456", "2021-02-09");
     }
 
@@ -36,12 +37,12 @@ public class JdbcTest {
 
     @Test
     public void delete() {
-        new Executor(MYSQL).delete("delete from user where id in (?)", 86);
+        new Executor(MYSQL).delete("delete from user where id in (?, ?, ?)", 89, 90, 91);
     }
 
     @Test
     public void update() {
-        new Executor(MYSQL).update("update user set username = ? where id = ?", "愣头青", 2);
+        new Executor(MYSQL).update("update user set username = ? where id = ?", "愣头青", 88);
     }
 
     @Test
@@ -69,7 +70,8 @@ public class JdbcTest {
 
     @Test
     public void selectOne() {
-        User user = new Executor(MYSQL).selectOne(User.class, "select * from user where id = ?", 2);
+        User user =
+                new Executor(MYSQL).selectOne(User.class, "select * from user where id = ?", 88);
         System.out.println("id: " + user.getId());
         System.out.println("username: " + user.getUsername());
         System.out.println("password: " + user.getPassword());
@@ -79,7 +81,7 @@ public class JdbcTest {
     @Test
     public void selectMapOne() {
         Map<String, Object> user = new Executor(MYSQL)
-                .selectMapOne(Map.class, "select password from user where id = ?", 2);
+                .selectMapOne(Map.class, "select password from user where id = ?", 88);
         System.out.println("id: " + user.get("id"));
         System.out.println("username: " + user.get("username"));
         System.out.println("password: " + user.get("password"));
@@ -87,9 +89,20 @@ public class JdbcTest {
     }
 
     @Test
-    public void test() {
+    public void testSpringYaml() {
         Map<String, Object> oracle = YamlUtil.readYaml("config-database.yml", "oracle", Map.class);
         List<Map<String, Object>> load = new OriginTrackedYamlLoader().load("config-database.yml");
         System.out.println(oracle);
+    }
+
+    @Test
+    public void testYaml() {
+        Yaml yaml = new Yaml();
+        Iterable<Object> iterable = yaml.loadAll(
+                YamlUtil.class.getClassLoader().getResourceAsStream("config-database.yml"));
+        while (iterable.iterator().hasNext()) {
+            Object next = iterable.iterator().next();
+            System.out.println();
+        }
     }
 }

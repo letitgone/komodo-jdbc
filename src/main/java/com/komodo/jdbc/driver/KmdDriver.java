@@ -1,6 +1,7 @@
-package com.komodo.jdbc.configuration;
+package com.komodo.jdbc.driver;
 
-import com.komodo.community.pojo.ConnectionInfo;
+import com.komodo.jdbc.configuration.Configuration;
+import com.komodo.jdbc.entity.ConnectionInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;

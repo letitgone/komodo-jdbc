@@ -1,9 +1,11 @@
-package com.komodo.jdbc.configuration;
+package com.komodo.jdbc.executor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.komodo.community.enums.DatasourceEnum;
-import com.komodo.community.pojo.ConnectionInfo;
 import com.komodo.community.utils.YamlUtil;
+import com.komodo.jdbc.configuration.Configuration;
+import com.komodo.jdbc.entity.ConnectionInfo;
+import com.komodo.jdbc.driver.KmdDriver;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
