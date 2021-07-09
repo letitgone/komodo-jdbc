@@ -29,6 +29,10 @@ public class Executor {
 
     private ResultSet resultSet;
 
+    public Executor() {
+        configuration = configuration(DatasourceEnum.MYSQL);
+    }
+
     public Executor(DatasourceEnum datasourceEnum) {
         configuration = configuration(datasourceEnum);
     }

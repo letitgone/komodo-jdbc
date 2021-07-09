@@ -20,7 +20,7 @@ public class JdbcTest {
 
     @Test
     public void insert() {
-        new Executor(MYSQL)
+        new Executor()
                 .insert("insert into user (username, password, birthday) values(?,?,?)", "铁头娃",
                         "123456", "2021-02-09");
     }
